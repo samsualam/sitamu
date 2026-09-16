@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Form permintaan kunjungan Buku Tamu Digital SITAMU."
+    />
+    <title>Buku Tamu Digital | SITAMU</title>
+  </head>
+  <body>
+    <main class="page-shell" id="main-content">
+      <section class="guest-card" aria-labelledby="page-title">
+        <header class="hero">
+          <div class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" role="img" focusable="false">
+              <path d="M12 3.5a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm0 10c-4.14 0-7.5 2.24-7.5 5v2h15v-2c0-2.76-3.36-5-7.5-5Z" />
+            </svg>
+          </div>
+          <p class="eyebrow">SITAMU</p>
+          <h1 id="page-title">Buku Tamu Digital</h1>
+          <p class="subtitle">Kirim permintaan kunjungan Anda dengan cepat dan mudah.</p>
+        </header>
+
+        <div id="configuration-error" class="notice notice-error" role="alert" hidden></div>
+
+        <form id="guest-form" novalidate>
+          <div id="form-error-summary" class="notice notice-error" role="alert" tabindex="-1" hidden></div>
+
+          <div class="field-group">
+            <label for="name">Nama lengkap <span aria-hidden="true">*</span></label>
+            <input id="name" name="name" type="text" autocomplete="name" required aria-describedby="name-error" />
+            <p id="name-error" class="field-error" role="alert"></p>
+          </div>
+
+          <div class="field-group">
+            <label for="institution">Instansi / asal</label>
+            <input id="institution" name="institution" type="text" autocomplete="organization" />
+          </div>
+
+          <div class="field-group">
+            <label for="phone">Nomor WhatsApp <span aria-hidden="true">*</span></label>
+            <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required aria-describedby="phone-hint phone-error" />
+            <p id="phone-hint" class="field-hint">Contoh: 081234567890</p>
+            <p id="phone-error" class="field-error" role="alert"></p>
+          </div>
+
+          <div class="field-group">
+            <label for="destination">Tujuan / pegawai yang ingin ditemui <span aria-hidden="true">*</span></label>
+            <select id="destination" name="destination" required disabled aria-describedby="destination-status destination-error">
+              <option value="">Memuat daftar tujuan…</option>
+            </select>
+            <p id="destination-status" class="field-hint" aria-live="polite">Sedang memuat tujuan yang tersedia.</p>
+            <p id="destination-error" class="field-error" role="alert"></p>
+          </div>
+
+          <div class="field-group">
+            <label for="purpose">Keperluan <span aria-hidden="true">*</span></label>
+            <textarea id="purpose" name="purpose" rows="4" required aria-describedby="purpose-error"></textarea>
+            <p id="purpose-error" class="field-error" role="alert"></p>
+          </div>
+
+          <button id="submit-button" class="submit-button" type="submit" disabled>
+            <span class="button-label">Kirim Permintaan</span>
+            <span class="button-loading" hidden><span class="spinner" aria-hidden="true"></span>Mengirim…</span>
+          </button>
+        </form>
+
+        <section id="success-message" class="success-message" aria-live="polite" tabindex="-1" hidden>
+          <div class="success-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" focusable="false"><path d="m5 12.5 4.5 4.5L19 7.5" /></svg>
+          </div>
+          <h2>Permintaan kunjungan berhasil dikirim.</h2>
+          <p>Silakan menunggu konfirmasi dari petugas.</p>
+        </section>
+      </section>
+    </main>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

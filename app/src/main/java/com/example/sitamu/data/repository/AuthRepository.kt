@@ -2,40 +2,69 @@ package com.example.sitamu.data.repository
 
 import com.example.sitamu.data.local.AdminDao
 import com.example.sitamu.data.local.AuthPreferences
-import com.example.sitamu.data.model.AdminEntity
-import com.example.sitamu.utils.SecurityUtils
-import kotlinx.coroutines.flow.Flow
+import com.example.sitamu.data.remote.SupabaseProvider
+import io.github.jan.supabase.auth.auth
+import io.github.jan.supabase.auth.providers.builtin.Email
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.flow.Flow
 
 class AuthRepository(
-    private val adminDao: AdminDao,
+    @Suppress("UNUSED_PARAMETER")
+    adminDao: AdminDao,
     private val authPreferences: AuthPreferences
 ) {
-    val isLoggedIn: Flow<Boolean> = authPreferences.isLoggedIn
-    val adminName: Flow<String?> = authPreferences.adminName
-    val adminUsername: Flow<String?> = authPreferences.adminUsername
 
-    suspend fun login(username: String, passwordRaw: String): Result<AdminEntity> {
+    private val supabase = SupabaseProvider.client
+
+    val isLoggedIn: Flow<Boolean> =
+        authPreferences.isLoggedIn
+
+    val adminName: Flow<String?> =
+        authPreferences.adminName
+
+    val adminUsername: Flow<String?> =
+        authPreferences.adminUsername
+
+    suspend fun login(
+        emailInput: String,
+        passwordRaw: String
+    ): Result<Unit> {
+
         return try {
-            val admin = adminDao.getAdminByUsername(username)
-            if (admin == null) {
-                return Result.failure(Exception("Username atau password tidak sesuai."))
+
+            supabase.auth.signInWith(Email) {
+                email = emailInput
+                password = passwordRaw
             }
-            val hashedInput = SecurityUtils.hashPassword(passwordRaw)
-            if (admin.passwordHash == hashedInput) {
-                authPreferences.saveSession(admin.username, admin.name)
-                Result.success(admin)
-            } else {
-                Result.failure(Exception("Username atau password tidak sesuai."))
-            }
+
+            authPreferences.saveSession(
+                username = emailInput,
+                name = emailInput
+            )
+
+            Result.success(Unit)
+
         } catch (e: CancellationException) {
             throw e
+
         } catch (e: Exception) {
-            Result.failure(Exception("Terjadi kesalahan saat masuk. Silakan coba kembali."))
+
+            Result.failure(
+                Exception(
+                    "Email atau password tidak sesuai."
+                )
+            )
         }
     }
 
     suspend fun logout() {
+
+        try {
+            supabase.auth.signOut()
+        } catch (_: Exception) {
+            // Session lokal tetap harus dibersihkan.
+        }
+
         authPreferences.clearSession()
     }
 }

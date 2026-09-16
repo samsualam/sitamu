@@ -9,6 +9,7 @@ local.properties
 
 .env
 .env.*
+.env.local
 *.jks
 *.keystore
 *.key
@@ -26,3 +27,9 @@ captures/
 .cxx/
 
 .kotlin/
+
+# Backup files
+*.backup
+
+# Supabase CLI temporary files
+supabase/.temp/

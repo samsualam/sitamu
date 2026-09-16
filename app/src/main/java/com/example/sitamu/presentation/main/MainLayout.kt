@@ -87,7 +87,7 @@ fun MainLayout(
                     label = { Text("Laporan") }
                 )
                 NavigationBarItem(
-                    selected = currentScreen == Screen.Settings,
+                    selected = currentScreen == Screen.Settings || currentScreen == Screen.Destinations,
                     onClick = {
                         if (currentScreen != Screen.Settings) {
                             navController.navigate(Screen.Settings.route) {

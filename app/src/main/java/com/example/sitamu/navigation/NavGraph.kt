@@ -9,6 +9,7 @@ import androidx.navigation.navArgument
 import com.example.sitamu.presentation.auth.LoginScreen
 import com.example.sitamu.presentation.auth.SplashScreen
 import com.example.sitamu.presentation.dashboard.DashboardScreen
+import com.example.sitamu.presentation.destination.DestinationManagementScreen
 import com.example.sitamu.presentation.guest.GuestDetailScreen
 import com.example.sitamu.presentation.guest.GuestFormScreen
 import com.example.sitamu.presentation.guest.GuestListScreen
@@ -71,6 +72,11 @@ fun NavGraph(navController: NavHostController) {
         composable(Screen.Settings.route) {
             MainLayout(navController = navController, currentScreen = Screen.Settings) {
                 SettingsScreen(navController = navController)
+            }
+        }
+        composable(Screen.Destinations.route) {
+            MainLayout(navController = navController, currentScreen = Screen.Destinations) {
+                DestinationManagementScreen(navController = navController)
             }
         }
     }

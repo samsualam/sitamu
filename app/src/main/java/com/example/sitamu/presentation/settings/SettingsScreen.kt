@@ -1,7 +1,9 @@
 package com.example.sitamu.presentation.settings
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -53,6 +55,32 @@ fun SettingsScreen(navController: NavController) {
             Column(modifier = Modifier.padding(16.dp)) {
                 Text(text = adminName ?: "Administrator", fontSize = 18.sp, fontWeight = FontWeight.Bold)
                 Text(text = "Username: ${adminUsername ?: "admin"}", fontSize = 14.sp, color = MaterialTheme.colorScheme.outline)
+            }
+        }
+        Spacer(modifier = Modifier.height(24.dp))
+
+        Text(text = "Manajemen Kunjungan", fontSize = 14.sp, color = MaterialTheme.colorScheme.outline, fontWeight = FontWeight.SemiBold)
+        Spacer(modifier = Modifier.height(4.dp))
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable { navController.navigate(Screen.Destinations.route) },
+            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
+        ) {
+            Row(
+                modifier = Modifier.padding(16.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(Icons.Default.AccountBox, contentDescription = null)
+                Spacer(modifier = Modifier.width(12.dp))
+                Column(modifier = Modifier.weight(1f)) {
+                    Text(text = "Tujuan Kunjungan", fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
+                    Text(
+                        text = "Kelola tujuan, divisi, nomor WhatsApp, dan status aktif.",
+                        fontSize = 14.sp,
+                        color = MaterialTheme.colorScheme.outline
+                    )
+                }
             }
         }
         Spacer(modifier = Modifier.height(24.dp))
